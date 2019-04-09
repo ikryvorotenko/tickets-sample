@@ -1,0 +1,65 @@
+@import io.ikryvorotenko.tickets.ShowsService.GenreResult
+@(showDate: Option[String], genreResults: List[GenreResult])
+<!doctype html>
+<html lang="en">
+  <head>
+      <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+      <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Tickets4Sale</title>
+  </head>
+  <body>
+    <div class="container">
+      <form class="form-inline row">
+        <div class="form-group mb-2">
+          <label for="showDate" class="my-1 mr-2">Show date: </label>
+          <input type="date" name="showDate" class="my-1 mr-2" id="showDate" value="@showDate" required>
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+      </form>
+
+      @if(genreResults.isEmpty) {
+        @if(showDate.isDefined) {
+          <h2 class="text-center">No shows found...</h2>
+        } else {
+          <h2 class="text-center">Please specify the show date</h2>
+        }
+      }
+      @for(genreResult <- genreResults) {
+        <p class="h4">@{genreResult.genre}</p>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Tickets left</th>
+              <th scope="col">Tickets available</th>
+              <th scope="col">Status</th>
+              <th scope="col">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+          @for(detailedShow <- genreResult.shows) {
+            <tr>
+              <th>@detailedShow.show.title</th>
+              <td>@detailedShow.state.left</td>
+              <td>@detailedShow.state.available</td>
+              <td>@detailedShow.state.status</td>
+              <td>@detailedShow.price</td>
+            </tr>
+          }
+          </tbody>
+        </table>
+      }
+
+    </div>
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

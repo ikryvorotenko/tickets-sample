@@ -1,0 +1,3 @@
+include "cli", "web"
+rootProject.name = 'tickets-sample'
+
