@@ -10,6 +10,8 @@ The app contains following components:
 - `ShowsService`: used for querying shows with provided query/show dates. `ShowsService` also contains the encoders for correct shows json serialization.
 - `Domain`: used for domain entities definition and related logic description
 
+Run unit-tests: `./gradlew test`
+
 Run CLI application: `./gradlew cli:run --args='{path-to-csv} {query-date} {show-date}'` ,
 where 
 - `path-to-csv`: absolute path to csv file with shows. and the columns consist of the title, opening day (the day of the first performance of a show), and genre of the show.
